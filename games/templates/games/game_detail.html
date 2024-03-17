@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ game.title }}</title>
+</head>
+<body>
+    <h1>{{ game.title }}</h1>
+    <p><strong>Developer:</strong> {{ game.developer }}</p>
+    <p><strong>Release Date:</strong> {{ game.release_date }}</p>
+    <p><strong>Description:</strong> {{ game.description }}</p>
+    <!-- You can also display the cover image if available -->
+    {% if game.cover_image %}
+        <img src="{{ game.cover_image.url }}" alt="{{ game.title }} Cover">
+    {% endif %}
+</body>
+</html>
