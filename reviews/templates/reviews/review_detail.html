@@ -1,15 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ review.title }}</title>
-</head>
-<body>
-    <h1>{{ review.title }}</h1>
-    <p>Rating: {{ review.rating }}</p>
-    <p>By: {{ review.user }}</p>
-    <p>{{ review.body }}</p>
-    <p>Created at: {{ review.created_at }}</p>
-    <p>Updated at: {{ review.updated_at }}</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Review List - GameLog{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Review List</h1>
+        <div class="row">
+            {% for review in reviews %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ review.title }}</h5>
+                        <p class="card-text">Rating: {{ review.rating }}</p>
+                        <!-- Add more review details as needed -->
+                        <a href="{% url 'review_detail' review.pk %}" class="btn btn-primary">View Review</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col">
+                <p>No reviews available.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

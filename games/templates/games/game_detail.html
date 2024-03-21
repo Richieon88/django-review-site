@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ game.title }}</title>
-</head>
-<body>
-    <h1>{{ game.title }}</h1>
-    <p><strong>Developer:</strong> {{ game.developer }}</p>
-    <p><strong>Release Date:</strong> {{ game.release_date }}</p>
-    <p><strong>Description:</strong> {{ game.description }}</p>
-    <!-- You can also display the cover image if available -->
-    {% if game.cover_image %}
-        <img src="{{ game.cover_image.url }}" alt="{{ game.title }} Cover">
-    {% endif %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}{{ game.title }} - GameLog{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">{{ game.title }}</h1>
+                <p class="card-text">Release Date: {{ game.release_date }}</p>
+                <p class="card-text">Genre: {{ game.genre }}</p>
+                
+                <a href="{% url 'game_list' %}" class="btn btn-secondary">Back to Game List</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
