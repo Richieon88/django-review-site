@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - GameLog{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron mt-5">
+            <h1 class="display-4">Welcome to GameLog</h1>
+            <p class="lead">A site ro review games</p>
+            <hr class="my-4">
+            <p>Sign Up to add your reviews</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Latest Games</h2>
+                <ul>
+                    {% for game in latest_games %}
+                        <li>{{ game.title }}</li>
+                    {% empty %}
+                        <li>No games available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h2>Top Rated Games</h2>
+                <ul>
+                    {% for game in top_rated_games %}
+                        <li>{{ game.title }} - Average Rating: {{ game.avg_rating|default:"No rating available" }}</li>
+                    {% empty %}
+                        <li>No games available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

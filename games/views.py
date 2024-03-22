@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Game
+from reviews.models import Review
+from django.db.models import Avg
 
 # Create your views here.
 def game_list(request):
@@ -11,8 +13,8 @@ def game_detail(request, pk):
     return render(request, 'games/game_detail.html', {'game': game})
 
 def homepage(request):
-    latest_games = Game.objects.order_by('-release_date')[:3]  # Get latest 3 games
-    top_rated_games = Game.objects.order_by('-rating')[:3]    # Get top rated 3 games
+    latest_games = Game.objects.order_by('-release_date')[:5]
+    top_rated_games = Game.objects.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')[:5]
     context = {
         'latest_games': latest_games,
         'top_rated_games': top_rated_games,
