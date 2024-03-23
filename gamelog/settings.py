@@ -45,7 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'games',
     'reviews',
+    'accounts',
 ]
+
+LOGIN_REDIRECT_URL = 'game_list'
+LOGOUT_REDIRECT_URL = 'homepage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
