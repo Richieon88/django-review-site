@@ -9,6 +9,12 @@
             {% for review in reviews %}
             <div class="col-md-6 mb-4">
                 <div class="card">
+                    {% if review.game.image %}
+                        <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
+                    {% else %}
+                        <!-- Placeholder image or default image -->
+                        <img src="{% static 'img/placeholder_review.png' %}" class="card-img-top" alt="Placeholder Image">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ review.title }}</h5>
                         <p class="card-text">Rating: {{ review.rating }}</p>

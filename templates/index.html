@@ -6,7 +6,7 @@
     <div class="container">
         <div class="jumbotron mt-5">
             <h1 class="display-4">Welcome to GameLog</h1>
-            <p class="lead">A site ro review games</p>
+            <p class="lead">A site to review games</p>
             <hr class="my-4">
             <p>Sign Up to add your reviews</p>
             <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
@@ -15,23 +15,51 @@
         <div class="row">
             <div class="col-md-6">
                 <h2>Latest Games</h2>
-                <ul>
+                <div class="row">
                     {% for game in latest_games %}
-                        <li>{{ game.title }}</li>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                {% if game.image %}
+                                    <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+                                {% else %}
+                                    <!-- Placeholder image or default image -->
+                                    <img src="{% static 'img/placeholder_game.png' %}" class="card-img-top" alt="Placeholder Image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ game.title }}</h5>
+                                    <p class="card-text">Release Date: {{ game.release_date }}</p>
+                                    <a href="{% url 'game_detail' game.pk %}" class="btn btn-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
                     {% empty %}
-                        <li>No games available.</li>
+                        <p>No games available.</p>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
             <div class="col-md-6">
                 <h2>Top Rated Games</h2>
-                <ul>
+                <div class="row">
                     {% for game in top_rated_games %}
-                        <li>{{ game.title }} - Average Rating: {{ game.avg_rating|default:"No rating available" }}</li>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                {% if game.image %}
+                                    <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+                                {% else %}
+                                    <!-- Placeholder image or default image -->
+                                    <img src="{% static 'img/placeholder_game.png' %}" class="card-img-top" alt="Placeholder Image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ game.title }}</h5>
+                                    <p class="card-text">Average Rating: {{ game.avg_rating|default:"No rating available" }}</p>
+                                    <a href="{% url 'game_detail' game.pk %}" class="btn btn-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
                     {% empty %}
-                        <li>No games available.</li>
+                        <p>No games available.</p>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
         </div>
     </div>

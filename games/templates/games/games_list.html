@@ -9,6 +9,12 @@
             {% for game in games %}
             <div class="col-md-4 mb-4">
                 <div class="card">
+                    {% if game.image %}
+                        <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+                    {% else %}
+                        <!-- Placeholder image or default image -->
+                        <img src="{% static 'img/placeholder.png' %}" class="card-img-top" alt="Placeholder Image">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ game.title }}</h5>
                         <p class="card-text">Release Date: {{ game.release_date }}</p>

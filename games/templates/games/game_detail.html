@@ -5,6 +5,12 @@
 {% block content %}
     <div class="container">
         <div class="card">
+            {% if game.image %}
+                <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+            {% else %}
+                <!-- Placeholder image or default image -->
+                <img src="{% static 'img/placeholder_detail.png' %}" class="card-img-top" alt="Placeholder Image">
+            {% endif %}
             <div class="card-body">
                 <h1 class="card-title">{{ game.title }}</h1>
                 <p class="card-text">Release Date: {{ game.release_date }}</p>
