@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Game
 from reviews.models import Review
 from django.db.models import Avg
+from reviews.forms import ReviewForm
 
 # Create your views here.
 def game_list(request):
@@ -20,3 +22,20 @@ def homepage(request):
         'top_rated_games': top_rated_games,
     }
     return render(request, 'index.html', context)
+
+@login_required
+def add_review(request, pk):
+    game = get_object_or_404(Game, pk=pk)
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.game = game
+            review.user = request.user
+            review.save()
+            return redirect('game_detail', pk=pk)
+    else:
+        form = ReviewForm()
+    
+    return render(request, 'reviews/add_review.html', {'form': form, 'game': game})

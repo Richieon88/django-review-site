@@ -17,7 +17,33 @@
                 <p class="card-text">Release Date: {{ game.release_date }}</p>
                 <p class="card-text">Genre: {{ game.genre }}</p>
                 
-                <a href="{% url 'game_list' %}" class="btn btn-secondary">Back to Game List</a>
+                <!-- Display Average Rating -->
+                <p class="card-text">Average Rating: {{ game.avg_rating|default:"No rating available" }}</p>
+                
+                <!-- Button to Add New Review -->
+                {% if user.is_authenticated %}
+                    <a href="{% url 'add_review' game.pk %}" class="btn btn-primary">Add a Review</a>
+                {% else %}
+                    <p>Please <a href="{% url 'login' %}">login</a> to add a review.</p>
+                {% endif %}
+                
+                <!-- Display Game Reviews -->
+                <h2 class="mt-4">Reviews</h2>
+                {% for review in game.reviews.all %}
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ review.title }}</h5>
+                            <p class="card-text">Rating: {{ review.rating }}</p>
+                            <p class="card-text">By: {{ review.user }}</p>
+                            <p class="card-text">{{ review.body }}</p>
+                            <small class="text-muted">Posted on {{ review.created_at }}</small>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No reviews yet.</p>
+                {% endfor %}
+                
+                <a href="{% url 'game_list' %}" class="btn btn-secondary mt-3">Back to Game List</a>
             </div>
         </div>
     </div>
