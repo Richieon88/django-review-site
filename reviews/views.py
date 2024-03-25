@@ -1,11 +1,22 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Review
-
+from games.models import Game
+from django.contrib.auth.models import User
 
 # Create your views here.
 def review_list(request):
     reviews = Review.objects.all()
-    return render(request, 'reviews/review_list.html', {'reviews': reviews})
+    review_data = []  
+
+    for review in reviews:
+        review_with_user_title = {
+            'review': review,
+            'user': review.user,
+            'title': review.game.title,
+        }
+        review_data.append(review_with_user_title)
+
+    return render(request, 'reviews/review_list.html', {'review_data': review_data})
 
 def game_detail(request, pk):
     game = get_object_or_404(Game, pk=pk)
@@ -32,3 +43,4 @@ def submit_review(request):
 def review_detail(request, pk):
     review = get_object_or_404(Review, pk=pk)
     return render(request, 'reviews/review_detail.html', {'review': review})
+

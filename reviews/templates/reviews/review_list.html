@@ -7,20 +7,23 @@
     <div class="container">
         <h1>Review List</h1>
         <div class="row">
-            {% for review in reviews %}
+            {% for review_item in review_data %}
             <div class="col-md-6 mb-4">
                 <div class="card">
-                    {% if review.game.image %}
-                        <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
+                    {% if review_item.review.game.image %}
+                        <img src="{{ review_item.review.game.image.url }}" class="card-img-top" alt="{{ review_item.review.game.title }}">
                     {% else %}
                         <!-- Placeholder image or default image -->
                         <img src="{% static 'img/placeholder_review.png' %}" class="card-img-top" alt="Placeholder Image">
                     {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title">{{ review.title }}</h5>
-                        <p class="card-text">Rating: {{ review.rating }}</p>
+                        <h5 class="card-title">{{ review_item.review.title }}</h5>
+                        <p class="card-text">Rating: {{ review_item.review.rating }}</p>
                         <!-- Add more review details as needed -->
-                        <a href="{% url 'review_detail' review.pk %}" class="btn btn-primary">View Details</a>
+                        <p class="card-text">User: {{ review_item.user.username }}</p>
+                        <p class="card-text">Reviewed Game: {{ review_item.title }}</p>
+                        <a href="{% url 'review_detail' review_item.review.pk %}" class="btn btn-primary">View Details</a>
+                        <p>URL: {% url 'review_detail' review_item.review.pk %}</p>
                     </div>
                 </div>
             </div>

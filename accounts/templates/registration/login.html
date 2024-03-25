@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - My Website{% endblock %}
+
+{% block content %}
+<div class="login-form">
+    <h2>Login to Your Account</h2>
+    <!-- Your login form content -->
+    <form method="post">
+        {% csrf_token %}
+        <!-- Add your form fields here -->
+        <input type="text" name="username" placeholder="Username"><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <button type="submit">Login</button>
+    </form>
+</div>
+{% endblock %}

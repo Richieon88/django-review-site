@@ -1,34 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Review List - GameLog{% endblock %}
+{% block title %}Review - {{ review.title }}{% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>Review List</h1>
-        <div class="row">
-            {% for review in reviews %}
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    {% if review.game.image %}
-                        <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
-                    {% else %}
-                        <!-- Placeholder image or default image -->
-                        <img src="{% static 'img/placeholder_review.png' %}" class="card-img-top" alt="Placeholder Image">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ review.title }}</h5>
-                        <p class="card-text">Rating: {{ review.rating }}</p>
-                        <!-- Add more review details as needed -->
-                        <a href="{% url 'review_detail' review.pk %}" class="btn btn-primary">View Review</a>
-                    </div>
-                </div>
+        <h1>Review Detail</h1>
+        <div class="card">
+            {% if review.game.image %}
+                <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
+            {% else %}
+                <!-- Placeholder image or default image -->
+                <img src="{% static 'img/placeholder_review.png' %}" class="card-img-top" alt="Placeholder Image">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ review.title }}</h5>
+                <p class="card-text">Rating: {{ review.rating }}</p>
+                <p class="card-text">User: {{ review.user }}</p>
+                <p class="card-text">Reviewed Game: {{ review.game.title }}</p>
+                <p class="card-text">Review Body: {{ review.body }}</p>
+                <!-- Add more review details as needed -->
             </div>
-            {% empty %}
-            <div class="col">
-                <p>No reviews available.</p>
-            </div>
-            {% endfor %}
         </div>
     </div>
 {% endblock %}
