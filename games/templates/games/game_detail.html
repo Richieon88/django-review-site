@@ -22,7 +22,7 @@
                 
                 <!-- Button to Add New Review -->
                 {% if user.is_authenticated %}
-                    <a href="{% url 'add_review' game.pk %}" class="btn btn-primary">Add a Review</a>
+                    <a href="{% url 'games:add_review' game.pk %}" class="btn btn-primary">Add a Review</a>
                 {% else %}
                     <p>Please <a href="{% url 'login' %}">login</a> to add a review.</p>
                 {% endif %}
@@ -43,7 +43,7 @@
                     <p>No reviews yet.</p>
                 {% endfor %}
                 
-                <a href="{% url 'game_list' %}" class="btn btn-secondary mt-3">Back to Game List</a>
+                <a href="{% url 'games:game_list' %}" class="btn btn-secondary mt-3">Back to Game List</a>
             </div>
         </div>
     </div>

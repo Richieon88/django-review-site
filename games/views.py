@@ -8,7 +8,7 @@ from reviews.forms import ReviewForm
 # Create your views here.
 def game_list(request):
     games = Game.objects.all()
-    return render(request, 'games_list.html', {'games': games})
+    return render(request, 'games/games_list.html', {'games': games})
 
 def game_detail(request, pk):
     game = Game.objects.get(pk=pk)

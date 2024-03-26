@@ -13,58 +13,61 @@
             <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Latest Games</h2>
-                <div class="row">
-                    {% for game in latest_games %}
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                {% if game.image %}
-                                    <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+        <div class="mb-4">
+            <h2>Latest Reviews</h2>
+            <div class="row">
+                {% for review in latest_reviews %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Display the image of the associated game -->
+                                {% if review.game.image %}
+                                    <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
                                 {% else %}
                                     <!-- Placeholder image or default image -->
                                     <img src="{% static 'img/placeholder_game.png' %}" class="card-img-top" alt="Placeholder Image">
                                 {% endif %}
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ game.title }}</h5>
-                                    <p class="card-text">Release Date: {{ game.release_date }}</p>
-                                    <a href="{% url 'games:game_detail' game.pk %}" class="btn btn-primary">View Details</a>
-                                </div>
+                                <h5 class="card-title">{{ review.game.title }}</h5>
+                                <p class="card-text">Review: {{ review.title }}</p>
+                                <p class="card-text">Rating: {{ review.rating }}</p>
+                                <p class="card-text">By: {{ review.user }}</p>
+                                <p class="card-text">{{ review.body }}</p>
+                                <a href="{% url 'reviews:review_detail' review.pk %}" class="btn btn-primary">View Review</a>
                             </div>
                         </div>
-                    {% empty %}
-                        <p>No games available.</p>
-                    {% endfor %}
-                </div>
+                    </div>
+                {% empty %}
+                    <p>No reviews available.</p>
+                {% endfor %}
             </div>
-            <div class="col-md-6">
-                <h2>Top Rated Games</h2>
-                <div class="row">
-                    {% for game in top_rated_games %}
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                {% if game.image %}
-                                    <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+        </div>
+
+        <div class="mb-4">
+            <h2>Top Rated Games</h2>
+            <div class="row">
+                {% for game in top_rated_games %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            {% if game.image %}
+                                <img src="{{ game.image.url }}" class="card-img-top" alt="{{ game.title }}">
+                            {% else %}
+                                <!-- Placeholder image or default image -->
+                                <img src="{% static 'img/placeholder_game.png' %}" class="card-img-top" alt="Placeholder Image">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ game.title }}</h5>
+                                {% if game.avg_rating %}
+                                    <p class="card-text">Average Rating: {{ game.avg_rating }}</p>
                                 {% else %}
-                                    <!-- Placeholder image or default image -->
-                                    <img src="{% static 'img/placeholder_game.png' %}" class="card-img-top" alt="Placeholder Image">
+                                    <p class="card-text">No rating available</p>
                                 {% endif %}
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ game.title }}</h5>
-                                    {% if game.avg_rating %}
-                                        <p class="card-text">Average Rating: {{ game.avg_rating }}</p>
-                                    {% else %}
-                                        <p class="card-text">No rating available</p>
-                                    {% endif %}
-                                    <a href="{% url 'games:game_detail' game.pk %}" class="btn btn-primary">View Details</a>
-                                </div>
+                                <a href="{% url 'games:game_detail' game.pk %}" class="btn btn-primary">View Details</a>
                             </div>
                         </div>
-                    {% empty %}
-                        <p>No games available.</p>
-                    {% endfor %}
-                </div>
+                    </div>
+                {% empty %}
+                    <p>No games available.</p>
+                {% endfor %}
             </div>
         </div>
     </div>

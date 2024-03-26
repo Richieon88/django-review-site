@@ -22,8 +22,8 @@
                         <!-- Add more review details as needed -->
                         <p class="card-text">User: {{ review_item.user.username }}</p>
                         <p class="card-text">Reviewed Game: {{ review_item.title }}</p>
-                        <a href="{% url 'review_detail' review_item.review.pk %}" class="btn btn-primary">View Details</a>
-                        <p>URL: {% url 'review_detail' review_item.review.pk %}</p>
+                        <a href="{% url 'reviews:review_detail' review_item.review.pk %}" class="btn btn-primary">View Details</a>
+                        
                     </div>
                 </div>
             </div>
