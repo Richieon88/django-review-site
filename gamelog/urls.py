@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from games.views import homepage
+from gamelog.views import homepage
 from django.contrib.auth import views as auth_views
 from accounts.views import register
+from . import views
 
 urlpatterns = [
     path('', homepage, name='homepage'),

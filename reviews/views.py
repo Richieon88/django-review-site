@@ -1,13 +1,20 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Review, Comment
-from .forms import ReviewForm
+from .forms import ReviewForm, CommentForm
 from games.models import Game
 from games.views import game_detail
 
 # Create your views here.
 def review_list(request):
     reviews = Review.objects.all()
-    return render(request, 'reviews/review_list.html', {'reviews': reviews})
+    review_data = []
+    for review in reviews:
+        review_data.append({
+            'review': review,
+            'user': review.user,
+            'title': review.game.title
+        })
+    return render(request, 'reviews/review_list.html', {'review_data': review_data})
 
 def review_detail(request, pk):
     review = get_object_or_404(Review, pk=pk)

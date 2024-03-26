@@ -5,7 +5,7 @@
 
 {% block content %}
     <div class="container">
-        <h1>Review Detail</h1>
+        <h1>Review</h1>
         <div class="card">
             {% if review.game.image %}
                 <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
@@ -29,11 +29,12 @@
         {% if comments %}
             <div class="comments">
                 {% for comment in comments %}
-                    <div class="comment">
-                        <p>{{ comment.text }}</p>
-                        <p>By: {{ comment.user.username }}</p>
-                        <p>Posted on: {{ comment.created_at }}</p>
-                        
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <p>{{ comment.text }}</p>
+                            <p class="card-text"><small class="text-muted">By: {{ comment.user.username }}</small></p>
+                            <p class="card-text"><small class="text-muted">Posted on: {{ comment.created_at }}</small></p>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
