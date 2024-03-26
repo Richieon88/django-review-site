@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from games.models import Game
+from .models import Game
 from reviews.models import Review
 from django.db.models import Avg
 from reviews.forms import ReviewForm
@@ -8,7 +8,7 @@ from reviews.forms import ReviewForm
 # Create your views here.
 def game_list(request):
     games = Game.objects.all()
-    return render(request, 'games/games_list.html', {'games': games})
+    return render(request, 'games_list.html', {'games': games})
 
 def game_detail(request, pk):
     game = Game.objects.get(pk=pk)

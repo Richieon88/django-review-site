@@ -48,3 +48,8 @@ def submit_review(request):
         form = ReviewForm()
     
     return render(request, 'reviews/submit_review.html', {'form': form})
+
+def profile(request):
+    user = request.user
+    reviews = user.review_set.all()
+    return render(request, 'reviews/profile.html', {'reviews': reviews})
