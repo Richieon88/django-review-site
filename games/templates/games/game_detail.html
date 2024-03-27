@@ -14,11 +14,16 @@
             {% endif %}
             <div class="card-body">
                 <h1 class="card-title">{{ game.title }}</h1>
+                <p class="card-text">Developer: {{ game.developer }}</p>
                 <p class="card-text">Release Date: {{ game.release_date }}</p>
-                <p class="card-text">Genre: {{ game.genre }}</p>
+                <p class="card-text">Description: {{ game.description }}</p>
                 
                 <!-- Display Average Rating -->
-                <p class="card-text">Average Rating: {{ game.avg_rating|default:"No rating available" }}</p>
+                {% if game.avg_rating %}
+                <p class="card-text">Average Rating: {{ game.avg_rating }}</p>
+                {% else %}
+                <p class="card-text">No rating available</p>
+                {% endif %}
                 
                 <!-- Button to Add New Review -->
                 {% if user.is_authenticated %}

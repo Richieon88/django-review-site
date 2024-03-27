@@ -3,6 +3,7 @@ from .models import Review, Comment
 from .forms import ReviewForm, CommentForm
 from games.models import Game
 from games.views import game_detail
+from django.contrib import messages
 
 # Create your views here.
 def review_list(request):
@@ -53,3 +54,13 @@ def profile(request):
     user = request.user
     reviews = user.review_set.all()
     return render(request, 'reviews/profile.html', {'reviews': reviews})
+
+def delete_review(request, pk):
+    review = get_object_or_404(Review, pk=pk)
+    if request.method == 'POST':
+        review.delete()
+        messages.success(request, 'Review deleted successfully.')
+        return redirect('reviews:profile')
+    else:
+        messages.error(request, 'Failed to delete review.')
+        return redirect('reviews:profile')

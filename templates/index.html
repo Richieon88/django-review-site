@@ -28,9 +28,9 @@
                                     <img src="{% static 'img/placeholder_game.png' %}" class="card-img-top" alt="Placeholder Image">
                                 {% endif %}
                                 <h5 class="card-title">{{ review.game.title }}</h5>
-                                <p class="card-text">Review: {{ review.title }}</p>
+                                <p class="card-text">Review by {{ review.user }}</p>
                                 <p class="card-text">Rating: {{ review.rating }}</p>
-                                <p class="card-text">By: {{ review.user }}</p>
+                                <p class="card-text">{{ review.title }}</p>
                                 <p class="card-text">{{ review.body }}</p>
                                 <a href="{% url 'reviews:review_detail' review.pk %}" class="btn btn-primary">View Review</a>
                             </div>
@@ -56,6 +56,9 @@
                             {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ game.title }}</h5>
+                                <p class="card-text">Developer: {{ game.developer }}</p>
+                                <p class="card-text">Release Date: {{ game.release_date }}</p>
+                                <p class="card-text">Developer: {{ game.description }}</p>
                                 {% if game.avg_rating %}
                                     <p class="card-text">Average Rating: {{ game.avg_rating }}</p>
                                 {% else %}

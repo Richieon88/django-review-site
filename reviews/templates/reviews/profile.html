@@ -1,18 +1,39 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}
-    User Profile
-{% endblock %}
+{% block title %}Profile - GameLog{% endblock %}
 
 {% block content %}
-    <h1>Welcome, {{ user.username }}</h1>
-    
-    <h2>Your Reviews:</h2>
-    <ul>
-        {% for review in reviews %}
-            <li>{{ review }}</li>
-        {% empty %}
-            <li>No reviews yet.</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Your Reviews</h1>
+        <div class="row">
+            {% for review in reviews %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ review.title }}</h5>
+                            <p class="card-text">Rating: {{ review.rating }}</p>
+                            <p class="card-text">By: {{ review.user }}</p>
+                            <p class="card-text">{{ review.body }}</p>
+                            <!-- Display the associated game's title and image -->
+                            <p class="card-text">Game: {{ review.game.title }}</p>
+                            {% if review.game.image %}
+                                <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
+                            {% else %}
+                                <!-- Placeholder image or default image -->
+                                <img src="{% static 'img/placeholder_game.png' %}" class="card-img-top" alt="Placeholder Image">
+                            {% endif %}
+                            <a href="{% url 'reviews:review_detail' review.pk %}" class="btn btn-primary">View Review</a>
+                            <form method="POST" action="{% url 'reviews:delete_review' review.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No reviews submitted yet.</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

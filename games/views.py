@@ -25,7 +25,7 @@ def add_review(request, pk):
             review.game = game
             review.user = request.user
             review.save()
-            return redirect('game_detail', pk=pk)
+            return redirect('games:game_detail', pk=pk)
     else:
         form = ReviewForm()
     
