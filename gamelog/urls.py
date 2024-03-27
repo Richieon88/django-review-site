@@ -4,6 +4,8 @@ from gamelog.views import homepage
 from django.contrib.auth import views as auth_views
 from accounts.views import register
 from . import views
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('', homepage, name='homepage'),

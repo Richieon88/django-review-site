@@ -24,9 +24,10 @@
                                 <img src="{% static 'img/placeholder_game.png' %}" class="card-img-top" alt="Placeholder Image">
                             {% endif %}
                             <a href="{% url 'reviews:review_detail' review.pk %}" class="btn btn-primary">View Review</a>
-                            <form method="POST" action="{% url 'reviews:delete_review' review.pk %}" style="display: inline;">
+                            <form method="POST" action="{% url 'reviews:delete_review' review.pk %}" style="display: inline;" class="delete-review-form">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <!-- Add data-review-id attribute to identify the review -->
+                                <button type="button" class="btn btn-danger delete-review-btn" data-review-id="{{ review.id }}">Delete</button>
                             </form>
                         </div>
                     </div>
@@ -36,4 +37,7 @@
             {% endfor %}
         </div>
     </div>
+
+    <!-- Include the JavaScript file from staticfiles -->
+    <script src="{% static 'js/delete_reviews.js' %}"></script>
 {% endblock %}
