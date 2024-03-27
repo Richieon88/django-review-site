@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Review, Comment
 from .forms import ReviewForm, CommentForm
 from games.models import Game
-from games.views import game_detail
 from django.contrib import messages
+from django.urls import reverse
 
 # Create your views here.
 def review_list(request):
@@ -28,7 +28,7 @@ def review_detail(request, pk):
             new_comment.review = review
             new_comment.user = request.user
             new_comment.save()
-            return redirect('review_detail', pk=pk)
+            return redirect('reviews:review_detail', pk=pk)  # Updated redirect here
     else:
         comment_form = CommentForm()
     
@@ -44,7 +44,7 @@ def submit_review(request):
             review.game = game
             review.user = request.user
             review.save()
-            return redirect('game_detail', pk=game_id)
+            return redirect('games:game_detail', pk=game_id)
     else:
         form = ReviewForm()
     
@@ -64,3 +64,15 @@ def delete_review(request, pk):
     else:
         messages.error(request, 'Failed to delete review.')
         return redirect('reviews:profile')
+
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+
+    # Check if the user is the owner of the comment
+    if request.user == comment.user:
+        comment.delete()
+        messages.success(request, 'Comment deleted successfully.')
+    else:
+        messages.error(request, 'You are not allowed to delete this comment.')
+
+    return redirect('reviews:review_detail', pk=comment.review.pk)

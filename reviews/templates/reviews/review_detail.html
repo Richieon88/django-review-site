@@ -34,6 +34,12 @@
                             <p>{{ comment.text }}</p>
                             <p class="card-text"><small class="text-muted">By: {{ comment.user.username }}</small></p>
                             <p class="card-text"><small class="text-muted">Posted on: {{ comment.created_at }}</small></p>
+                            {% if comment.user == request.user %}
+                                <form action="{% url 'reviews:delete_comment' comment.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
