@@ -5,10 +5,25 @@
 
 {% block content %}
     <div class="container">
-        <!-- Existing code for displaying review details -->
-        
-        <hr>
+        <h1>Review</h1>
+        <div class="card">
+            {% if review.game.image %}
+                <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
+            {% else %}
+                <!-- Placeholder image or default image -->
+                <img src="{% static 'img/placeholder_review.png' %}" class="card-img-top" alt="Placeholder Image">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ review.title }}</h5>
+                <p class="card-text">Rating: {{ review.rating }}</p>
+                <p class="card-text">User: {{ review.user }}</p>
+                <p class="card-text">Reviewed Game: {{ review.game.title }}</p>
+                <p class="card-text">Review Body: {{ review.body }}</p>
+                <!-- Add more review details as needed -->
+            </div>
+        </div>
 
+        <hr>
         <h2>Comments</h2>
         {% if comments %}
             <div class="comments">
@@ -27,7 +42,7 @@
                                 <form id="delete-comment-{{ comment.id }}" action="{% url 'reviews:delete_comment' comment.id %}" method="post">
                                     {% csrf_token %}
                                     <!-- Update the button type to submit and add onclick event -->
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ comment.id }})">Delete</button>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ comment.id }}')">Delete</button>
                                 </form>
                             {% endif %}
                         </div>
