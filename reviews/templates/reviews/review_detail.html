@@ -5,24 +5,8 @@
 
 {% block content %}
     <div class="container">
-        <h1>Review</h1>
-        <div class="card">
-            {% if review.game.image %}
-                <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
-            {% else %}
-                <!-- Placeholder image or default image -->
-                <img src="{% static 'img/placeholder_review.png' %}" class="card-img-top" alt="Placeholder Image">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ review.title }}</h5>
-                <p class="card-text">Rating: {{ review.rating }}</p>
-                <p class="card-text">User: {{ review.user }}</p>
-                <p class="card-text">Reviewed Game: {{ review.game.title }}</p>
-                <p class="card-text">Review Body: {{ review.body }}</p>
-                <!-- Add more review details as needed -->
-            </div>
-        </div>
-
+        <!-- Existing code for displaying review details -->
+        
         <hr>
 
         <h2>Comments</h2>
@@ -34,10 +18,16 @@
                             <p>{{ comment.text }}</p>
                             <p class="card-text"><small class="text-muted">By: {{ comment.user.username }}</small></p>
                             <p class="card-text"><small class="text-muted">Posted on: {{ comment.created_at }}</small></p>
+                            
+                            <!-- Like Button and Likes Count -->
+                            <button class="btn btn-primary like-comment-btn" data-comment-id="{{ comment.id }}">Like</button>
+                            <span class="likes-count" id="likes-count-{{ comment.id }}">{{ comment.likes_count }}</span>
+                            
                             {% if comment.user == request.user %}
-                                <form action="{% url 'reviews:delete_comment' comment.id %}" method="post">
+                                <form id="delete-comment-{{ comment.id }}" action="{% url 'reviews:delete_comment' comment.id %}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    <!-- Update the button type to submit and add onclick event -->
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ comment.id }})">Delete</button>
                                 </form>
                             {% endif %}
                         </div>
@@ -55,4 +45,8 @@
             <button type="submit" class="btn btn-primary">Submit Comment</button>
         </form>
     </div>
+    <!-- Include necessary scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/like_comment.js' %}"></script>
+    <script src="{% static 'js/delete_comment.js' %}"></script>
 {% endblock %}

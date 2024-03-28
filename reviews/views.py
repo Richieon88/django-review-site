@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Review, Comment
+from .models import Review, Comment, Comment, Like
 from .forms import ReviewForm, CommentForm
 from games.models import Game
 from django.contrib import messages
 from django.urls import reverse
+from django.http import JsonResponse
 
 # Create your views here.
 def review_list(request):
@@ -76,3 +77,35 @@ def delete_comment(request, comment_id):
         messages.error(request, 'You are not allowed to delete this comment.')
 
     return redirect('reviews:review_detail', pk=comment.review.pk)
+
+
+def like_comment(request):
+    if request.method == 'POST':
+        comment_id = request.POST.get('comment_id')
+        if comment_id:
+            comment = get_object_or_404(Comment, pk=comment_id)
+            user = request.user
+
+            # Check if the user has already liked the comment
+            if Like.objects.filter(comment=comment, user=user).exists():
+                # User has already liked the comment, so unlike it
+                Like.objects.filter(comment=comment, user=user).delete()
+                comment.likes_count -= 1
+                comment.save()
+                liked = False
+            else:
+                # User has not liked the comment, so like it
+                Like.objects.create(comment=comment, user=user)
+                comment.likes_count += 1
+                comment.save()
+                liked = True
+
+            data = {
+                'liked': liked,
+                'likes_count': comment.likes_count,
+            }
+            return JsonResponse(data)
+        else:
+            return JsonResponse({'error': 'comment_id not provided'}, status=400)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
