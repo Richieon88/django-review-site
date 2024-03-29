@@ -43,6 +43,12 @@ header {
     line-height: 1.5;
 }
 
+/* Styling for the game images */
+.card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
 /* Styling for the footer */
 footer {
     background-color: #333;

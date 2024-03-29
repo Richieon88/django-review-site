@@ -53,12 +53,16 @@
             <p>No comments yet.</p>
         {% endif %}
 
-        <h3>Add a Comment</h3>
-        <form method="post">
-            {% csrf_token %}
-            {{ comment_form.as_p }}
-            <button type="submit" class="btn btn-primary">Submit Comment</button>
-        </form>
+        {% if user.is_authenticated %}
+            <h3>Add a Comment</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit Comment</button>
+            </form>
+        {% else %}
+            <p>Please <a href="{% url 'login' %}">login</a> to add a comment.</p>
+        {% endif %}
     </div>
     <!-- Include necessary scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
