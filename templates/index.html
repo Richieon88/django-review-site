@@ -10,7 +10,15 @@
             <p class="lead">A site to review games</p>
             <hr class="my-4">
             <p>Sign Up to add your reviews</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            
+            {% if user.is_authenticated %}
+                <!-- If user is logged in, show View Games button -->
+                <a class="btn btn-primary btn-lg" href="{% url 'games:game_list' %}" role="button">View Games</a>
+            {% else %}
+                <!-- If user is not logged in, show Register and Log In buttons -->
+                <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a>
+                <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Log In</a>
+            {% endif %}
         </div>
 
         <div class="mb-4">
@@ -65,6 +73,11 @@
                                     <p class="card-text">No rating available</p>
                                 {% endif %}
                                 <a href="{% url 'games:game_detail' game.pk %}" class="btn btn-primary">View Details</a>
+                                
+                                <!-- Add Review button -->
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'games:add_review' game.pk %}" class="btn btn-secondary">Add Review</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
