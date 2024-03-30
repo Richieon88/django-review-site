@@ -8,10 +8,10 @@
         <h1>Review</h1>
         <div class="card">
             {% if review.game.image %}
-                <img src="{{ review.game.image.url }}" class="card-img-top" alt="{{ review.game.title }}">
+                <img src="{{ review.game.image.url }}" class="card-img-top review-detail-image" alt="{{ review.game.title }}">
             {% else %}
                 <!-- Placeholder image or default image -->
-                <img src="{% static 'img/placeholder_review.png' %}" class="card-img-top" alt="Placeholder Image">
+                <img src="{% static 'img/placeholder_review.png' %}" class="card-img-top review-detail-image" alt="Placeholder Image">
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ review.title }}</h5>
@@ -35,16 +35,21 @@
                             <p class="card-text"><small class="text-muted">Posted on: {{ comment.created_at }}</small></p>
                             
                             <!-- Like Button and Likes Count -->
-                            <button class="btn btn-primary like-comment-btn" data-comment-id="{{ comment.id }}">Like</button>
-                            <span class="likes-count" id="likes-count-{{ comment.id }}">{{ comment.likes_count }}</span>
-                            
-                            {% if comment.user == request.user %}
-                                <form id="delete-comment-{{ comment.id }}" action="{% url 'reviews:delete_comment' comment.id %}" method="post">
-                                    {% csrf_token %}
-                                    <!-- Update the button type to submit and add onclick event -->
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ comment.id }}')">Delete</button>
-                                </form>
-                            {% endif %}
+                            <div class="row">
+                                <div class="col-auto">
+                                    <button class="btn btn-primary like-comment-btn" data-comment-id="{{ comment.id }}"><i class="fas fa-thumbs-up"></i> Like</button>
+                                    <span class="likes-count" id="likes-count-{{ comment.id }}">{{ comment.likes_count }}</span>
+                                </div>
+                                {% if comment.user == request.user %}
+                                    <div class="col-auto">
+                                        <form id="delete-comment-{{ comment.id }}" action="{% url 'reviews:delete_comment' comment.id %}" method="post">
+                                            {% csrf_token %}
+                                            <!-- Update the button type to submit and add onclick event -->
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ comment.id }}')"><i class="fas fa-trash-alt"></i> Delete</button>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
