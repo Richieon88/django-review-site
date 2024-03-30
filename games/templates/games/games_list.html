@@ -21,12 +21,18 @@
                         <p class="card-text">Developer: {{ game.developer }}</p>
                         <p class="card-text">Release Date: {{ game.release_date }}</p>
                         <p class="card-text">Description: {{ game.description }}</p>
-                        <a href="{% url 'games:game_detail' game.pk %}" class="btn btn-primary">View Details</a>
                         
-                        <!-- Add a button for adding a review -->
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'games:add_review' game.pk %}" class="btn btn-success mt-2">Add a Review</a>
-                        {% endif %}
+                        <div class="row">
+                            <div class="col">
+                                <a href="{% url 'games:game_detail' game.pk %}" class="btn btn-primary btn-sm">View Details</a>
+                            </div>
+                            <div class="col">
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'games:add_review' game.pk %}" class="btn btn-success btn-sm">Add a Review</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
