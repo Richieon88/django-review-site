@@ -6,7 +6,7 @@ It provides users with a platform to explore and share their insights on various
 
 The primary goal of GameLog is to provide an engaging and informative experience for gaming enthusiasts, allowing them to discover new games, share their thoughts, and connect with a community of fellow gamers.
 
-![Am I responsive image]()
+![Am I responsive image](documentation/Screenshot%202024-03-30%20054121.png)
 
 [Link to the live website]()
 
@@ -245,3 +245,65 @@ Attempt to access restricted pages without login | Redirected to login page or a
 ------------ | ------------ | ------------ |
 Access the site from a mobile device | Site layout adjusts for smaller screens | Works as expected |
 Resize the browser window to smaller dimensions | Site elements reorganize for better usability | Works as expected |
+
+### Code Validators
+
+Before committing or deploying your code, it's important to ensure that it meets coding standards and best practices. Below are the validators used and their results for this project:
+
+#### Lighthouse (Web Performance)
+
+- Code was put through Lighthouse for web performance.
+- Result: The lighthouse test has an issue with cloudinary, which with the time constraints i can not resolve.
+
+#### W3C HTML Validator
+
+- Code was put through W3C HTML Validator.
+- Result: Passed
+
+#### W3C CSS Validator
+
+- Code was put through W3C CSS Validator.
+- Result: Passed
+
+#### JSLint (JavaScript)
+
+- Code was put through JSLint for JavaScript.
+- Result: Passed
+
+#### PEP 8 (Python)
+
+- Code was put through PEP 8 for Python.
+- Result: Passed
+
+### Deployment
+
+This project was deployed on [Heroku](https://www.heroku.com/) for live production. The following steps were taken to deploy the Django application:
+
+#### Heroku Deployment
+
+1. Created a new Heroku app from the Heroku dashboard:
+   - Logged in to Heroku.
+   - Clicked on the "New" button on the dashboard and selected "Create new app".
+   - Provided a unique app name and selected the region.
+
+2. Added a PostgreSQL database using [ElephantSQL](https://www.elephantsql.com/):
+   - Created a new database instance with the "Tiny Turtle" (Free) plan.
+   - Obtained the database URL from ElephantSQL for later use.
+
+3. Created the `env.py` file for environment variables:
+   - Imported `os` at the top of the `env.py` file.
+   - Set the `DATABASE_URL` variable to the PostgreSQL database URL.
+   - Generated a `SECRET_KEY` for session encryption and added it to `env.py`.
+
+4. Updated `settings.py` for database and environment variables:
+   - Added code to import `env` if the `env.py` file exists.
+   - Set `SECRET_KEY` to the value from `os.environ.get('SECRET_KEY')`.
+   - Configured `DATABASES` to use the PostgreSQL database URL if available, or fallback to local SQLite.
+
+5. Created a `Procfile` for Heroku deployment:
+   - Specified the command to run the Django app using Gunicorn.
+
+6. Added Cloudinary for media file storage:
+   - Obtained the Cloudinary URL from the Cloudinary dashboard.
+   - Added the `CLOUDINARY_URL` variable to `env.py` for local development.
+   - Configured `DEFAULT_FILE_STORAGE` in `settings.py` to use Cloudinary for media files.

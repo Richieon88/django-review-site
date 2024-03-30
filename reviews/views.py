@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Review, Comment, Comment, Like
+from .models import Review, Comment, Like
 from .forms import ReviewForm, CommentForm
 from games.models import Game
 from django.contrib import messages
 from django.urls import reverse
 from django.http import JsonResponse
+
 
 # Create your views here.
 def review_list(request):
@@ -16,12 +17,16 @@ def review_list(request):
             'user': review.user,
             'title': review.game.title
         })
-    return render(request, 'reviews/review_list.html', {'review_data': review_data})
+    return render(
+        request,
+        'reviews/review_list.html',
+        {'review_data': review_data}
+    )
+
 
 def review_detail(request, pk):
     review = get_object_or_404(Review, pk=pk)
     comments = review.comments.all()
-    
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
@@ -29,11 +34,15 @@ def review_detail(request, pk):
             new_comment.review = review
             new_comment.user = request.user
             new_comment.save()
-            return redirect('reviews:review_detail', pk=pk)  # Updated redirect here
+            return redirect('reviews:review_detail', pk=pk)
     else:
         comment_form = CommentForm()
-    
-    return render(request, 'reviews/review_detail.html', {'review': review, 'comments': comments, 'comment_form': comment_form})
+    return render(request, 'reviews/review_detail.html', {
+        'review': review,
+        'comments': comments,
+        'comment_form': comment_form
+    })
+
 
 def submit_review(request):
     if request.method == 'POST':
@@ -48,13 +57,14 @@ def submit_review(request):
             return redirect('games:game_detail', pk=game_id)
     else:
         form = ReviewForm()
-    
     return render(request, 'reviews/submit_review.html', {'form': form})
+
 
 def profile(request):
     user = request.user
     reviews = user.review_set.all()
     return render(request, 'reviews/profile.html', {'reviews': reviews})
+
 
 def delete_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
@@ -66,10 +76,10 @@ def delete_review(request, pk):
         messages.error(request, 'Failed to delete review.')
         return redirect('reviews:profile')
 
+
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
 
-    # Check if the user is the owner of the comment
     if request.user == comment.user:
         comment.delete()
         messages.success(request, 'Comment deleted successfully.')
@@ -86,15 +96,12 @@ def like_comment(request):
             comment = get_object_or_404(Comment, pk=comment_id)
             user = request.user
 
-            # Check if the user has already liked the comment
             if Like.objects.filter(comment=comment, user=user).exists():
-                # User has already liked the comment, so unlike it
                 Like.objects.filter(comment=comment, user=user).delete()
                 comment.likes_count -= 1
                 comment.save()
                 liked = False
             else:
-                # User has not liked the comment, so like it
                 Like.objects.create(comment=comment, user=user)
                 comment.likes_count += 1
                 comment.save()
@@ -106,6 +113,12 @@ def like_comment(request):
             }
             return JsonResponse(data)
         else:
-            return JsonResponse({'error': 'comment_id not provided'}, status=400)
+            return JsonResponse(
+                {'error': 'comment_id not provided'},
+                status=400
+            )
     else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
+        return JsonResponse(
+            {'error': 'Invalid request method'},
+            status=405
+        )

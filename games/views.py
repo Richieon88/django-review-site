@@ -5,27 +5,26 @@ from reviews.models import Review
 from django.db.models import Avg
 from reviews.forms import ReviewForm
 
+
 # Create your views here.
 def game_list(request):
     games = Game.objects.all()
     return render(request, 'games/games_list.html', {'games': games})
 
+
 def game_detail(request, pk):
     game = get_object_or_404(Game, pk=pk)
-    
-    # Annotate the game with its average rating
     avg_rating = game.reviews.aggregate(Avg('rating'))['rating__avg']
-    
     context = {
         'game': game,
         'avg_rating': avg_rating,
     }
     return render(request, 'games/game_detail.html', context)
 
+
 @login_required
 def add_review(request, pk):
     game = get_object_or_404(Game, pk=pk)
-    
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -36,5 +35,6 @@ def add_review(request, pk):
             return redirect('games:game_detail', pk=pk)
     else:
         form = ReviewForm()
-    
-    return render(request, 'reviews/add_review.html', {'form': form, 'game': game})
+
+    context = {'form': form, 'game': game}
+    return render(request, 'reviews/add_review.html', context)
