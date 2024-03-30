@@ -1,8 +1,9 @@
+/* jshint esversion: 6 */
+
 $(document).ready(function() {
     $(".like-comment-btn").click(function() {
         var comment_id = $(this).data("comment-id");
         
-        // Send AJAX POST request
         $.ajax({
             type: "POST",
             url: "/reviews/like_comment/",
@@ -17,7 +18,7 @@ $(document).ready(function() {
                 } else {
                     alert("Comment unliked!");
                 }
-                // Update the like count display
+                
                 $("#likes-count-" + comment_id).text(response.likes_count);
             },
             error: function(xhr, errmsg, err) {

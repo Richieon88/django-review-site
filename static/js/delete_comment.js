@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 function confirmDelete(commentId) {
     console.log("Delete button clicked for comment ID:", commentId);
     if (confirm("Are you sure you want to delete this comment?")) {

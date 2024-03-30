@@ -7,10 +7,8 @@ from reviews.models import Review
 
 def homepage(request):
     latest_reviews = Review.objects.all().order_by('-created_at')[:5]
-    
-    # Annotate each Game object with its average rating
     top_rated_games = Game.objects.annotate(avg_rating=Avg('reviews__rating')).filter(~Q(avg_rating=None)).order_by('-avg_rating')[:5]
-
+    
     context = {
         'latest_reviews': latest_reviews,
         'top_rated_games': top_rated_games,

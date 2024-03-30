@@ -40,7 +40,6 @@
                                 <p class="card-text">Rating: {{ review.rating }}</p>
                                 <p class="card-text">{{ review.title }}</p>
                                 
-                                <!-- Truncate review body to 150 characters -->
                                 {% if review.body|length > 150 %}
                                     <p class="card-text">{{ review.body|slice:":150" }}...</p>
                                 {% else %}
@@ -81,7 +80,6 @@
                                 {% endif %}
                                 <a href="{% url 'games:game_detail' game.pk %}" class="btn btn-primary">View Details</a>
                                 
-                                <!-- Add Review button -->
                                 {% if user.is_authenticated %}
                                     <a href="{% url 'games:add_review' game.pk %}" class="btn btn-secondary">Add Review</a>
                                 {% endif %}
