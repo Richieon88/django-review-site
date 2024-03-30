@@ -8,7 +8,7 @@ The primary goal of GameLog is to provide an engaging and informative experience
 
 ![Am I responsive image](documentation/Screenshot%202024-03-30%20054121.png)
 
-[Link to the live website]()
+[Link to the live website](https://gamelog-3e0517079d62.herokuapp.com/)
 
 ## 1. Overview
 
