@@ -8,6 +8,7 @@
     {% load static %}
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -16,7 +17,7 @@
         <!-- Navigation bar, logo, etc. -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="{% url 'homepage' %}">GameLog</a>
-            
+    
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <!-- Add the Games and Reviews links here -->
@@ -26,7 +27,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'reviews:review_list' %}">Reviews</a>
                     </li>
-                    
+    
                     {% if user.is_authenticated %}
                         <!-- If user is authenticated, show Profile and Logout links -->
                         <li class="nav-item">
@@ -48,6 +49,11 @@
             </div>
         </nav>
     </header>
+    
+    <!-- Custom Message -->
+    <div class="custom-message-container">
+        <p class="custom-message">You are logged in as {{ user.username }}</p>
+    </div>
 
     <main class="container mt-4">
         <!-- Main content of each page will go here -->
