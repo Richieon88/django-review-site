@@ -1,24 +1,28 @@
 $(document).ready(function() {
-    $(".like-btn").click(function() {
-        var commentId = $(this).data("comment-id");
-        var url = `/reviews/like_comment/${commentId}/`;
-
+    $(".like-comment-btn").click(function() {
+        var comment_id = $(this).data("comment-id");
+        
+        // Send AJAX POST request
         $.ajax({
-            url: url,
             type: "POST",
+            url: "/reviews/like_comment/",
             data: {
-                csrfmiddlewaretoken: "{{ csrf_token }}"
+                comment_id: comment_id,
+                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()
             },
+            dataType: "json",
             success: function(response) {
                 if (response.liked) {
-                    $("#comment-" + commentId + " .like-btn").text("Unlike");
+                    alert("Comment liked!");
                 } else {
-                    $("#comment-" + commentId + " .like-btn").text("Like");
+                    alert("Comment unliked!");
                 }
-                $("#comment-" + commentId + " .like-count").text(response.likes_count);
+                // Update the like count display
+                $("#likes-count-" + comment_id).text(response.likes_count);
             },
             error: function(xhr, errmsg, err) {
                 console.log(xhr.status + ": " + xhr.responseText);
+                alert("An error occurred. Please try again.");
             }
         });
     });

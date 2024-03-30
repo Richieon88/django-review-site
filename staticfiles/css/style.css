@@ -1,0 +1,287 @@
+body {
+    font-family: 'Ubuntu', 'Open sans';
+}
+
+header {
+    background-color: #ff4500;
+    padding: 10px 0;
+}
+
+.navbar {
+    background-color: #ff4500;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    background-color: #ff4500;
+}
+
+.navbar-nav .nav-link {
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 15px;
+    background-color: #ff4500;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #aaa;
+}
+
+.navbar-collapse {
+    background-color: #ff4500;
+}
+
+.bg-dark {
+    background-color: #ff4500 !important;
+}
+
+/* Custom Styles for the custom message */
+.custom-message-container {
+    text-align: right;
+    padding: 5px 20px;
+    background-color: #f8f9fa;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.custom-message {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Styling for the main content */
+.container {
+    padding: 20px;
+    margin-bottom: 60px;
+}
+
+/* Styling for the main content */
+.jumbotron {
+    background-color: #007bff;
+    padding: 20px;
+}
+
+.jumbotron h1 {
+    font-size: 36px;
+    color: white;
+}
+
+.jumbotron p {
+    font-size: 18px;
+    color: white;
+}
+
+.jumbotron hr {
+    border-top: 2px solid #ccc;
+}
+
+.jumbotron .btn-primary {
+    background-color: #ff4500;
+    color: #fff;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+.jumbotron .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    font-size: 20px;
+    padding: 10px 20px;
+}
+
+.jumbotron .btn-primary:hover,
+.jumbotron .btn-secondary:hover {
+    background-color: #0056b3;
+}
+
+.container {
+    padding: 20px;
+    margin-bottom: 60px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 24px;
+}
+
+.card-text {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Styling for the game images */
+.card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Custom Styles for Login Page */
+
+/* Styling for the login form container */
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.login-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the register form container */
+.register-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.register-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.register-form input[type="text"],
+.register-form input[type="password"],
+.register-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.register-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #28a745;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.register-form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Styling for the comments section */
+.comments {
+    margin-top: 20px;
+}
+
+.comments .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.comments .card-body {
+    padding: 15px;
+}
+
+.comments .card-text {
+    font-size: 16px;
+}
+
+.comments .card-text small {
+    color: #aaa;
+}
+
+.comments .like-comment-btn,
+.comments .btn-danger {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.comments .like-comment-btn i,
+.comments .btn-danger i {
+    margin-right: 5px;
+}
+
+.comments .like-comment-btn {
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    color: #fff;
+}
+
+.comments .like-comment-btn:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.comments .btn-danger {
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    color: #fff;
+}
+
+.comments .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+}
+
+.comments .like-comment-btn + .btn-danger {
+    margin-left: 5px;
+}
+
+/* Styling for the footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
